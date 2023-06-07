@@ -113,12 +113,11 @@ export default function useSipUser(
     }
   }
 
-  const mutedCall = (muteCheckbox: HTMLInputElement) => {
-    if (muteCheckbox.checked) {
+  const mutedCall = (isMuted: boolean) => {
+    if (isMuted) {
       // Checkbox is checked..
       user.value?.mute()
       if (user.value?.isMuted() === false) {
-        muteCheckbox.checked = false
         console.error(`[${user.value?.id}] failed to mute call`)
         alert('Failed to mute call.\n')
       }
@@ -126,7 +125,6 @@ export default function useSipUser(
       // Checkbox is not checked..
       user.value?.unmute()
       if (user.value?.isMuted() === true) {
-        muteCheckbox.checked = true
         console.error(`[${user.value?.id}] failed to unmute call`)
         alert('Failed to unmute call.\n')
       }
@@ -139,7 +137,8 @@ export default function useSipUser(
     displayName: string,
     password: string,
     videoLocalElement: HTMLVideoElement,
-    videoRemoteElement: HTMLVideoElement
+    videoRemoteElement: HTMLVideoElement,
+    isVideoMod: boolean
   ): Web.SimpleUser {
     console.log(`Creating "${displayName}" <${aor}>...`)
 
@@ -150,7 +149,7 @@ export default function useSipUser(
         constraints: {
           // This demo is making "video only" calls
           audio: true,
-          video: true
+          video: isVideoMod
         },
         local: {
           video: videoLocalElement
@@ -243,7 +242,8 @@ export default function useSipUser(
       userName,
       password,
       videoLocalElement,
-      videoRemoteElement
+      videoRemoteElement,
+      true
     )
   }
 

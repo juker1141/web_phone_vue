@@ -26,13 +26,13 @@ const {
   holdCall,
   mutedCall, refreshUser } = useSipUser(
     "wss://turn.realtime.tw/ws",
-    "sip:600@turn.realtime.tw",
-    "600",
+    "sip:601@turn.realtime.tw",
+    "601",
     "80076327",
   )
 
-
 const endPhoneCall = () => {
+  endCall()
   callConfig.$reset()
   router.push({
     name: 'home'
@@ -67,8 +67,8 @@ onMounted(async () => {
         </div>
         <!-- 下方的通話控制 -->
         <div ref="controller" class="w-full flex items-end justify-between h-24">
-          <MicrophoneBtn />
-          <DisconnectCallBtn @click.prevent="() => endCall()" />
+          <MicrophoneBtn @switch-muted="(isMuted: boolean) => mutedCall(isMuted)" />
+          <DisconnectCallBtn @click.prevent="() => endPhoneCall()" />
           <template v-if="callConfig.callType === 'voice'">
             <SpeakerBtn />
           </template>
