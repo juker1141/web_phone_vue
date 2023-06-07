@@ -44,6 +44,7 @@ export default function useSipUser(
 
   const registerUser = async () => {
     try {
+      console.log('Registration!!')
       await user.value?.register({
         // An example of how to get access to a SIP response message for custom handling
         requestDelegate: {
@@ -66,6 +67,7 @@ export default function useSipUser(
 
   const beginCall = async (displayName: string) => {
     const target = createSIPPath(displayName, baseUrl)
+    console.log('call to ', displayName)
     try {
       await user.value?.call(target, undefined, {
         // An example of how to get access to a SIP response message for custom handling
@@ -155,6 +157,9 @@ export default function useSipUser(
           // This demo is making "video only" calls
           audio: true,
           video: isVideoMod
+        },
+        local: {
+          video: videoLocalElement
         },
         remote: {
           video: videoRemoteElement

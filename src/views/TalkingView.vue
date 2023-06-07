@@ -92,7 +92,7 @@ onMounted(async () => {
         </div>
       </div>
       <!-- 視訊通話 -->
-      <div ref="video-telephony" v-if="isVideoMod"
+      <div ref="video-telephony" :class="{ 'opacity-0': !isVideoMod }"
         class="absolute h-full w-full xl:w-1/3 2xl:w-1/2 top-0 left-1/2 -translate-x-1/2 bg-black z-0">
         <video ref="remoteVideoRef" class="object-cover w-full h-full">
           <p>Your browser doesn't support HTML5 video.</p>
