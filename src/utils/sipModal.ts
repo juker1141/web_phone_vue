@@ -1,14 +1,17 @@
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
 import { Web } from 'sip.js'
+import { createSIPPath, createWsPath } from './path'
 
 export default function useSipUser(
-  wsServer: string,
-  userUri: string,
+  baseUrl: string,
   userName: string,
-  password: string
+  password: string,
+  isVideoMod: boolean
 ) {
   const user = ref<null | Web.SimpleUser>(null)
+  const sipPath = createSIPPath(userName, baseUrl)
+  const wsServerPath = createWsPath(baseUrl)
 
   const connectCall = async () => {
     try {
@@ -60,17 +63,18 @@ export default function useSipUser(
     }
   }
 
-  const beginCall = async (target: string, targetDisplay: string) => {
+  const beginCall = async (displayName: string) => {
+    const target = createSIPPath(displayName, baseUrl)
     try {
       await user.value?.call(target, undefined, {
         // An example of how to get access to a SIP response message for custom handling
         requestDelegate: {
           onReject: (response: any) => {
             console.warn(`[${user.value?.id}] INVITE rejected`)
-            let message = `Session invitation to "${targetDisplay}" rejected.\n`
+            let message = `Session invitation to "${displayName}" rejected.\n`
             message += `Reason: ${response.message.reasonPhrase}\n`
-            message += `Perhaps "${targetDisplay}" is not connected or registered?\n`
-            message += `Or perhaps "${targetDisplay}" did not grant access to video?\n`
+            message += `Perhaps "${displayName}" is not connected or registered?\n`
+            message += `Or perhaps "${displayName}" did not grant access to video?\n`
             alert(message)
           }
         },
@@ -150,9 +154,6 @@ export default function useSipUser(
           // This demo is making "video only" calls
           audio: true,
           video: isVideoMod
-        },
-        local: {
-          video: videoLocalElement
         },
         remote: {
           video: videoRemoteElement
@@ -237,13 +238,13 @@ export default function useSipUser(
       return
     }
     user.value = buildUser(
-      wsServer,
-      userUri,
+      wsServerPath,
+      sipPath,
       userName,
       password,
       videoLocalElement,
       videoRemoteElement,
-      true
+      isVideoMod
     )
   }
 

@@ -1,7 +1,16 @@
 import { defineStore } from 'pinia'
 
+interface CallConfig {
+  callType: 'voice' | 'video'
+  callerInfo: {
+    name: string
+    UID: string
+    image: string
+  }
+}
+
 export const useCallConfigStore = defineStore('counter', {
-  state: () => ({
+  state: (): CallConfig => ({
     callType: 'voice',
     callerInfo: {
       name: '兎田ぺこら',
