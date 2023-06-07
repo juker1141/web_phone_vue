@@ -12,7 +12,7 @@ import useSipUser from '@/utils/sipModal';
 const route = useRoute();
 const router = useRouter();
 const callConfig = useCallConfigStore();
-const isCallLoading = ref(true);
+// const isCallLoading = ref(true);
 
 const remoteVideoRef = ref<null | HTMLVideoElement>(null);
 const localVideoRef = ref<null | HTMLVideoElement>(null);

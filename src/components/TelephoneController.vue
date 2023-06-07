@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { defineProps } from "vue";
 import { useRouter } from "vue-router";
 
-import RejectCallBtn from "@/components/button/RejectCallBtn.vue";
+// import RejectCallBtn from "@/components/button/RejectCallBtn.vue";
 import SpeakerBtn from '@/components/button/SpeakerBtn.vue';
 import VideoCallBtn from "./button/VideoCallBtn.vue";
-import ConnectCallBtn from '@/components/button/ConnectCallBtn.vue';
+// import ConnectCallBtn from '@/components/button/ConnectCallBtn.vue';
 import DisconnectCallBtn from "@/components/button/DisconnectCallBtn.vue";
 import MicrophoneBtn from "@/components/button/MicrophoneBtn.vue";
 

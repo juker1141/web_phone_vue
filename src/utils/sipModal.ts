@@ -2,6 +2,7 @@ import { ref } from 'vue'
 
 import { Web } from 'sip.js'
 import { createSIPPath, createWsPath } from './path'
+import router from '@/router'
 
 export default function useSipUser(
   baseUrl: string,
@@ -188,6 +189,7 @@ export default function useSipUser(
       onUnregistered: () => console.log(`[${user.id}] unregistered`),
       onServerConnect: () => console.log(`[${user.id}] connected`),
       onServerDisconnect: (error?: Error) => {
+        router.push({ name: 'home' })
         console.log(`[${user.id}] disconnected`)
         if (error) {
           alert(`[${user.id}] Server disconnected.\n` + error.message)

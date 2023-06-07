@@ -12,7 +12,7 @@ import DotLoading from "@/components/DotLoading.vue";
 
 const router = useRouter();
 const callConfig = useCallConfigStore();
-const isCallLoading = ref(true);
+// const isCallLoading = ref(true);
 
 const endPhoneCall = () => {
   callConfig.$reset();
